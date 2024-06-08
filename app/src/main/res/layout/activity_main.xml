@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="#000000"
+    android:background="#B0E2FF"
     tools:context=".MainActivity">
 
+   <!-- Hearts -->
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/game_LAY_heartLayout"
         android:layout_width="wrap_content"
@@ -51,13 +51,213 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
+    <!-- 2dim array -->
     <LinearLayout
         android:id="@+id/grid_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"/>
+        android:layout_height="0dp"
+        android:layout_above="@id/arrow_layout"
+        android:layout_below="@+id/game_LAY_heartLayout"
+        android:orientation="vertical">
 
+        <!-- Row 1 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/cell_00"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/bird2"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/cell_01"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/bird2"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/cell_02"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/bird2"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <!-- Row 2 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/cell_10"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/bird2"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/cell_11"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/bird2"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/cell_12"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/bird2"
+                android:visibility="visible" />
+        </LinearLayout>
+
+        <!-- Row 3 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/cell_20"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/bird2"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/cell_21"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/bird2"
+                android:visibility="invisible"/>
+
+            <ImageView
+                android:id="@+id/cell_22"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/bird2"
+                android:visibility="invisible"/>
+        </LinearLayout>
+
+        <!-- Row 4 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/cell_30"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/bird2"
+                android:visibility="invisible"/>
+
+            <ImageView
+                android:id="@+id/cell_31"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/bird2"
+                android:visibility="visible"/>
+
+            <ImageView
+                android:id="@+id/cell_32"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/bird2"
+                android:visibility="invisible"/>
+        </LinearLayout>
+
+        <!-- Row 5 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/cell_40"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/bird2"
+                android:visibility="visible"/>
+
+            <ImageView
+                android:id="@+id/cell_41"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/bird2"
+                android:visibility="invisible"/>
+
+            <ImageView
+                android:id="@+id/cell_42"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/bird2"
+                android:visibility="invisible"/>
+        </LinearLayout>
+
+        <!-- Row 6 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/cell_50"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/plane"
+                android:visibility="invisible"/>
+
+            <ImageView
+                android:id="@+id/cell_51"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/plane"
+                android:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/cell_52"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/plane"
+                android:visibility="invisible"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Arrows -->
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/arrow_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -76,12 +276,11 @@
             android:insetBottom="0dp"
             app:icon="@drawable/ic_arrow_left"
             app:iconGravity="textEnd"
-            app:iconSize="52dp"
-            />
+            app:iconSize="52dp" />
 
         <View
             android:layout_width="12dp"
-            android:layout_height="0dp"/>
+            android:layout_height="0dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/game_arrow_right"
@@ -93,10 +292,9 @@
             android:insetBottom="0dp"
             app:icon="@drawable/ic_arrow_right"
             app:iconGravity="textEnd"
-            app:iconSize="52dp"
-            />
+            app:iconSize="52dp" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-</LinearLayout>
+</RelativeLayout>
