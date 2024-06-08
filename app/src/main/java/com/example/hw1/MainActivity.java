@@ -5,7 +5,6 @@ import androidx.appcompat.widget.AppCompatImageView;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -20,17 +19,15 @@ public class MainActivity extends AppCompatActivity {
     private MaterialButton game_arrow_left;
     private MaterialButton game_arrow_right;
 
-    private ImageView[][] cells; // 2D array to hold all image views representing cells
-    private int currentRow = 5; // Initial row of the plane
-    private int currentCol = 1; // Initial column of the plane
-    private int lives = 3; // Number of lives
+    private ImageView[][] cells;
+    private int currentRow = 5;
+    private int currentCol = 1;
+    private int lives = 3;
 
     private Random random = new Random();
-    private final int FALL_INTERVAL = 2000; // 2 seconds
-    private ImageView fallingBird; // ImageView for the falling bird
+    private final int FALL_INTERVAL = 2000;
     private Handler handler = new Handler();
     private Runnable birdFallingRunnable;
-    private int birdColumn; // Column from which bird falls
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupGameBoard() {
-        cells = new ImageView[6][3]; // 6 rows, 3 columns
+        cells = new ImageView[6][3];
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 3; j++) {
                 int resID = getResources().getIdentifier("cell_" + i + j, "id", getPackageName());
@@ -80,18 +77,18 @@ public class MainActivity extends AppCompatActivity {
     // Move plane to the left
     private void movePlaneLeft() {
         if (currentCol > 0) {
-            cells[currentRow][currentCol].setVisibility(View.INVISIBLE); // Make current cell invisible
+            cells[currentRow][currentCol].setVisibility(View.INVISIBLE);
             currentCol--; // Move left
-            cells[currentRow][currentCol].setVisibility(View.VISIBLE); // Make new cell visible
+            cells[currentRow][currentCol].setVisibility(View.VISIBLE);
         }
     }
 
     // Move plane to the right
     private void movePlaneRight() {
         if (currentCol < 2) {
-            cells[currentRow][currentCol].setVisibility(View.INVISIBLE); // Make current cell invisible
+            cells[currentRow][currentCol].setVisibility(View.INVISIBLE);
             currentCol++; // Move right
-            cells[currentRow][currentCol].setVisibility(View.VISIBLE); // Make new cell visible
+            cells[currentRow][currentCol].setVisibility(View.VISIBLE);
         }
     }
 
@@ -109,12 +106,11 @@ public class MainActivity extends AppCompatActivity {
         birdFallingRunnable = new Runnable() {
             @Override
             public void run() {
-                int col = random.nextInt(3); // Random column for the bird to start falling
+                int col = random.nextInt(3);
                 for (int row = 0; row < 5; row++) {
                     final int finalRow = row;
                     final int finalCol = col;
 
-                    // Schedule each cell visibility change with a slight delay
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -126,9 +122,9 @@ public class MainActivity extends AppCompatActivity {
                                 handleCollision();
                             }
                         }
-                    }, finalRow * 500); // 300ms delay between each row
+                    }, finalRow * 500);
 
-                    // Reset the bird position after it has fallen
+
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -137,23 +133,21 @@ public class MainActivity extends AppCompatActivity {
                     }, (finalRow + 1) * 500);
                 }
 
-                // Schedule the next bird falling
+
                 handler.postDelayed(this, FALL_INTERVAL);
             }
         };
 
-        handler.post(birdFallingRunnable); // Start the initial bird fall
+        handler.post(birdFallingRunnable);
     }
 
     private void handleCollision() {
         Toast.makeText(this, "collision", Toast.LENGTH_SHORT).show();
-        // Reduce a heart
         if (lives > 0) {
             lives--;
             game_hearts[lives].setVisibility(View.INVISIBLE);
         }
 
-        // Check if the game is over
         if (lives == 0) {
             Toast.makeText(this, "You lose!", Toast.LENGTH_SHORT).show();
             handler.removeCallbacks(birdFallingRunnable);
@@ -162,6 +156,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        handler.removeCallbacks(birdFallingRunnable); // Stop the bird falling when the activity is destroyed
+        handler.removeCallbacks(birdFallingRunnable);
     }
 }
