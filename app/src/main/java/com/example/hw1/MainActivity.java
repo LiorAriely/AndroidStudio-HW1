@@ -3,8 +3,12 @@ package com.example.hw1;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -28,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private final int FALL_INTERVAL = 2000;
     private Handler handler = new Handler();
     private Runnable birdFallingRunnable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,6 +148,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleCollision() {
         Toast.makeText(this, "collision", Toast.LENGTH_SHORT).show();
+
+        //Add vibration when collision
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
+        if (v != null) {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                VibrationEffect effect = VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE);
+                v.vibrate(effect);
+            }
+        }
         if (lives > 0) {
             lives--;
             game_hearts[lives].setVisibility(View.INVISIBLE);
