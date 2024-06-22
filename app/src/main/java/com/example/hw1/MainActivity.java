@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.VibrationEffect;
@@ -23,23 +22,23 @@ public class MainActivity extends AppCompatActivity {
     private MaterialButton game_arrow_left;
     private MaterialButton game_arrow_right;
 
-    private ImageView[][] cells;
-    private int currentRow = 5;
-    private int currentCol = 1;
-    private int lives = 3;
+
 
     private Random random = new Random();
     private final int FALL_INTERVAL = 2000;
     private Handler handler = new Handler();
     private Runnable birdFallingRunnable;
-
+    private GameManager gameManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        hideAllBirds();
+        gameManager = new GameManager(3);
         setupGameBoard();
+        hideAllBirds();
+
         findViews();
+
         startBirdFalling();
 
     }
@@ -56,44 +55,27 @@ public class MainActivity extends AppCompatActivity {
         game_arrow_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                movePlaneLeft();
+                gameManager.movePlaneLeft();
             }
         });
 
         game_arrow_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                movePlaneRight();
+                gameManager.movePlaneRight();
             }
         });
 
     }
 
     private void setupGameBoard() {
-        cells = new ImageView[6][3];
+        ImageView[][] cells = new ImageView[6][3];
+        gameManager.setCells(cells);
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 3; j++) {
                 int resID = getResources().getIdentifier("cell_" + i + j, "id", getPackageName());
-                cells[i][j] = findViewById(resID);
+                gameManager.getCells()[i][j] = findViewById(resID);
             }
-        }
-    }
-
-    // Move plane to the left
-    private void movePlaneLeft() {
-        if (currentCol > 0) {
-            cells[currentRow][currentCol].setVisibility(View.INVISIBLE);
-            currentCol--; // Move left
-            cells[currentRow][currentCol].setVisibility(View.VISIBLE);
-        }
-    }
-
-    // Move plane to the right
-    private void movePlaneRight() {
-        if (currentCol < 2) {
-            cells[currentRow][currentCol].setVisibility(View.INVISIBLE);
-            currentCol++; // Move right
-            cells[currentRow][currentCol].setVisibility(View.VISIBLE);
         }
     }
 
@@ -120,10 +102,10 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             if (finalRow > 0) {
-                                cells[finalRow - 1][finalCol].setVisibility(View.INVISIBLE);
+                                gameManager.getCells()[finalRow - 1][finalCol].setVisibility(View.INVISIBLE);
                             }
-                            cells[finalRow][finalCol].setVisibility(View.VISIBLE);
-                            if ((finalRow+1) == currentRow && finalCol == currentCol) {
+                            gameManager.getCells()[finalRow][finalCol].setVisibility(View.VISIBLE);
+                            if ((finalRow+1) == gameManager.getCurrentRow() && finalCol == gameManager.getCurrentCol()) {
                                 handleCollision();
                             }
                         }
@@ -133,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            cells[finalRow][finalCol].setVisibility(View.INVISIBLE);
+                            gameManager.getCells()[finalRow][finalCol].setVisibility(View.INVISIBLE);
                         }
                     }, (finalRow + 1) * 500);
                 }
@@ -158,12 +140,10 @@ public class MainActivity extends AppCompatActivity {
                 v.vibrate(effect);
             }
         }
-        if (lives > 0) {
-            lives--;
-            game_hearts[lives].setVisibility(View.INVISIBLE);
-        }
+        gameManager.decreaseLive();
+        game_hearts[gameManager.getLives()].setVisibility(View.INVISIBLE);
 
-        if (lives == 0) {
+        if (gameManager.getLives() == 0) {
             Toast.makeText(this, "You lose!", Toast.LENGTH_SHORT).show();
             handler.removeCallbacks(birdFallingRunnable);
         }
