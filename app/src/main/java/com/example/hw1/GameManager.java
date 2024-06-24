@@ -9,13 +9,15 @@ public class GameManager {
 
     private int currentRow = 5;
     private int currentCol = 1;
+    private int initialLives;
     private int lives = 3;
     private Random random = new Random();
     private ImageView[][] cells;
 
     public GameManager(int initialLives) {
+        this.initialLives = initialLives;
         if (initialLives > 0 && initialLives <= 4) {
-            lives = initialLives;
+            this.lives = initialLives;
         }
 
     }
@@ -23,6 +25,7 @@ public class GameManager {
     public ImageView[][] getCells() {
         return cells;
     }
+
     public void setCells(ImageView[][] cells) {
         this.cells = cells;
     }
@@ -53,8 +56,18 @@ public class GameManager {
         }
     }
 
+    //Reset the number of lives to the initial value.
+    public void resetLives() {
+        this.lives = initialLives;
+    }
 
-
+    //Reset the plane position to the initial position.
+    public void resetPosition() {
+        cells[currentRow][currentCol].setVisibility(View.INVISIBLE);
+        currentRow = 5;
+        currentCol = 1;
+        cells[currentRow][currentCol].setVisibility(View.VISIBLE);
+    }
     public int getCurrentRow() {
         return currentRow;
     }

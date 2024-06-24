@@ -21,28 +21,28 @@ public class MainActivity extends AppCompatActivity {
     private AppCompatImageView[] game_hearts;
     private MaterialButton game_arrow_left;
     private MaterialButton game_arrow_right;
-
-
-
+    private final int totalRows=6;
+    private final int totalCols=3;
+    private final int totalBirdRows=5;
     private Random random = new Random();
     private final int FALL_INTERVAL = 2000;
     private Handler handler = new Handler();
     private Runnable birdFallingRunnable;
     private GameManager gameManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        gameManager = new GameManager(3);
+        gameManager = new GameManager(3);// Initialize game manager with 3 lives
         setupGameBoard();
         hideAllBirds();
-
         findViews();
-
         startBirdFalling();
 
     }
 
+    //Find and setup view elements.
     private void findViews() {
         game_arrow_left = findViewById(R.id.game_arrow_left);
         game_arrow_right = findViewById(R.id.game_arrow_right);
@@ -68,20 +68,22 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // Setup the game board by finding and assigning all cell views.
     private void setupGameBoard() {
-        ImageView[][] cells = new ImageView[6][3];
+        ImageView[][] cells = new ImageView[totalRows][totalCols];
         gameManager.setCells(cells);
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < totalRows; i++) {
+            for (int j = 0; j < totalCols; j++) {
                 int resID = getResources().getIdentifier("cell_" + i + j, "id", getPackageName());
                 gameManager.getCells()[i][j] = findViewById(resID);
             }
         }
     }
 
+    //Hide all bird images
     private void hideAllBirds() {
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < totalBirdRows; i++) {
+            for (int j = 0; j < totalCols; j++) {
                 int resID = getResources().getIdentifier("cell_" + i + j, "id", getPackageName());
                 ImageView imageView = findViewById(resID);
                 imageView.setVisibility(View.INVISIBLE);
@@ -89,12 +91,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Start the bird falling logic, which will be repeatedly executed.
     private void startBirdFalling() {
         birdFallingRunnable = new Runnable() {
             @Override
             public void run() {
                 int col = random.nextInt(3);
-                for (int row = 0; row < 5; row++) {
+                for (int row = 0; row < totalBirdRows; row++) {
                     final int finalRow = row;
                     final int finalCol = col;
 
@@ -128,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
         handler.post(birdFallingRunnable);
     }
 
+    //Handle collision event when a bird hits the plane.
     private void handleCollision() {
         Toast.makeText(this, "collision", Toast.LENGTH_SHORT).show();
 
@@ -146,7 +150,24 @@ public class MainActivity extends AppCompatActivity {
         if (gameManager.getLives() == 0) {
             Toast.makeText(this, "You lose!", Toast.LENGTH_SHORT).show();
             handler.removeCallbacks(birdFallingRunnable);
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    resetGame();
+                }
+            }, 6000);//Wait 6 sec until game starts over
         }
+    }
+
+    //Reset the game to its initial state.
+    private void resetGame() {
+        gameManager.resetLives();
+        gameManager.resetPosition();
+        for (AppCompatImageView heart : game_hearts) {
+            heart.setVisibility(View.VISIBLE);
+        }
+        hideAllBirds();
+        startBirdFalling();
     }
     @Override
     protected void onDestroy() {
