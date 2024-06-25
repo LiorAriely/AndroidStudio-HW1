@@ -16,9 +16,11 @@ public class GameManager {
 
     public GameManager(int initialLives) {
         this.initialLives = initialLives;
-        if (initialLives > 0 && initialLives <= 4) {
+        if (initialLives > 0 && initialLives < 4) {
             this.lives = initialLives;
         }
+        else
+            this.lives=3;
 
     }
 
