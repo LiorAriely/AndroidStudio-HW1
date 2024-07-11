@@ -7,9 +7,10 @@ import java.util.Random;
 
 public class GameManager {
 
-    private int currentRow = 5;
+    private int currentRow = 7;
     private int currentCol = 1;
     private int initialLives;
+    private int score = 0;
     private int lives = 3;
     private Random random = new Random();
     private ImageView[][] cells;
@@ -51,7 +52,7 @@ public class GameManager {
     }
 
     public void movePlaneRight() {
-        if (currentCol < 2) {
+        if (currentCol < 4) {
             cells[currentRow][currentCol].setVisibility(View.INVISIBLE);
             currentCol++; // Move right
             cells[currentRow][currentCol].setVisibility(View.VISIBLE);
@@ -66,7 +67,7 @@ public class GameManager {
     //Reset the plane position to the initial position.
     public void resetPosition() {
         cells[currentRow][currentCol].setVisibility(View.INVISIBLE);
-        currentRow = 5;
+        currentRow = 7;
         currentCol = 1;
         cells[currentRow][currentCol].setVisibility(View.VISIBLE);
     }
@@ -76,5 +77,13 @@ public class GameManager {
 
     public int getCurrentCol() {
         return currentCol;
+    }
+
+    public void addScore() {
+        score += 10;
+    }
+
+    public int getScore() {
+        return score;
     }
 }
