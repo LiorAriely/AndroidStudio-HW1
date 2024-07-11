@@ -59,6 +59,14 @@ public class GameManager {
         }
     }
 
+    public int movePlaneWithSens(int i){
+        if(i==1&& getCurrentCol() < 4)
+            currentCol++; // Move right
+        else if(i==-1&& getCurrentCol() > 0)
+            currentCol--; // Move left
+        return getCurrentCol();
+    }
+
     //Reset the number of lives to the initial value.
     public void resetLives() {
         this.lives = initialLives;

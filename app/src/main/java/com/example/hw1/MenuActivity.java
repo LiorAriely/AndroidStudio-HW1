@@ -1,6 +1,7 @@
 package com.example.hw1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -24,12 +25,14 @@ public class MenuActivity extends AppCompatActivity{
     private SwitchMaterial  menu_SW_fast;
 
 
-    // mode
-    private boolean isFast;
-    private boolean isSensorMode;
 
-    private double latitude;
-    private double longitude;
+    // mode
+    private boolean isFast=false;
+    private boolean isSensors = false;
+
+    private AppCompatEditText menu_TXT_userName;
+    private double latitude = 0.0;
+    private double longitude= 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,7 @@ public class MenuActivity extends AppCompatActivity{
         setContentView(R.layout.activity_menu);
         findViews();
         buttonListener();
+        switchListener();
     }
 
     @Override
@@ -54,15 +58,30 @@ public class MenuActivity extends AppCompatActivity{
 
     private void buttonListener(){
         menu_BTN_play.setOnClickListener(view -> {
-            openGameScreen();
+            startGame();
         });
 
     }
 
-    private void openGameScreen() {
+    private void switchListener(){
+        menu_SW_fast.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean fast) {
+                isFast = fast;
+            }
+        });
+        menu_SW_sensors.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean sensors) {
+                isSensors = sensors;
+            }
+        });
+    }
+
+    private void startGame() {
         Intent gameIntent = new Intent(this, MainActivity.class);
-        //gameIntent.putExtra(MainActivity.KEY_SENSOR, isSensorMode);
-        //gameIntent.putExtra(MainActivity.KEY_SPEED, isFast);
+        gameIntent.putExtra(MainActivity.KEY_SENSOR, isSensors);
+        gameIntent.putExtra(MainActivity.KEY_SPEED, isFast);
         //gameIntent.putExtra(MainActivity.KEY_LATITUDE,latitude);
         //gameIntent.putExtra(MainActivity.KEY_LONGITUDE,longitude);
         startActivity(gameIntent);
