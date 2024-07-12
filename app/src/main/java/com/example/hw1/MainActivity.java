@@ -291,7 +291,6 @@ public class MainActivity extends AppCompatActivity {
         if(isSensors) {
             sensorsDec.stopX();
         }
-
     }
 
     @Override

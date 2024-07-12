@@ -30,47 +30,4 @@ public class Sound {
         });
     }
 
-//    public void playSound(int res) {
-//        playSound(res, 1.0f);
-//    }
-//
-//    public void playSound(int res, float volume) {
-//        if (mediaPlayer != null) {
-//            stopSound();
-//        }
-//        if (mediaPlayer == null) {
-//            executor.execute(new Runnable() {
-//                @Override
-//                public void run() {
-//                    mediaPlayer = MediaPlayer.create(context, res);
-//                    mediaPlayer.setLooping(false);
-//                    mediaPlayer.setVolume(volume, volume);
-//                    mediaPlayer.start();
-//                    mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//                        @Override
-//                        public void onCompletion(MediaPlayer mp) {
-//                            mp.stop();
-//                            mp.release();
-//                            mp = null;
-//                        }
-//                    });
-//                }
-//            });
-//        }
-//    }
-//
-//    public void stopSound() {
-//        if (mediaPlayer != null) {
-//            executor.execute(new Runnable() {
-//                @Override
-//                public void run() {
-//                    mediaPlayer.stop();
-//                    mediaPlayer.release();
-//                    mediaPlayer = null;
-//                }
-//            });
-//        }
-//    }
-
-
 }
