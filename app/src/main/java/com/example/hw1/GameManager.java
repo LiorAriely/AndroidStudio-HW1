@@ -22,7 +22,9 @@ public class GameManager {
     private Random random = new Random();
     private ImageView[][] cells;
 
-    public GameManager(int initialLives) {
+    public GameManager(int initialLives,String userName) {
+        this.userName=userName;
+        this.score = 0;
         this.initialLives = initialLives;
         if (initialLives > 0 && initialLives < 4) {
             this.lives = initialLives;

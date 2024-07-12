@@ -25,8 +25,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyClOuQULS5wgWaDdXVGL2i-PXwdnFlByaw">
-        </meta-data>
+            android:value="AIzaSyCLEOz1ITtqL_tyH20NPRA6zH5dI4AaFcI"/>
         <activity
             android:name=".Fragments.ListFragment"
             android:exported="false" />
@@ -48,14 +47,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+            </activity>
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+                android:name=".MainActivity"
+                android:exported="true">
+                <meta-data
+                    android:name="android.app.lib_name"
+                    android:value="" />
         </activity>
     </application>
-
 </manifest>

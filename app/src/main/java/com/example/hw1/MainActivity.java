@@ -55,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         soundPlayer = new Sound(this);
-        gameManager = new GameManager(3);// Initialize game manager with 3 lives
+        getValuesPreviousIntent();
+        gameManager = new GameManager(3,userName);// Initialize game manager with 3 lives
         sensorsDec = new SensorsDetector(this, callBack_movement);
         setupGameBoard();
         getValuesPreviousIntent();
@@ -84,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
         boolean isFastMode = previousIntent.getExtras().getBoolean(KEY_SPEED);
         isSensors= previousIntent.getExtras().getBoolean(KEY_SENSOR);
         userName = previousIntent.getExtras().getString(KEY_USER);
-        latitude = previousIntent.getExtras().getDouble(KEY_LATITUDE);
-        longitude = previousIntent.getExtras().getDouble(KEY_LONGITUDE);
+        latitude = previousIntent.getExtras().getDouble(KEY_LATITUDE,0);
+        longitude = previousIntent.getExtras().getDouble(KEY_LONGITUDE,0);
         setSpeed(isFastMode);
     }
 

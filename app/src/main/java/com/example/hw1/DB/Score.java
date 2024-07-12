@@ -22,8 +22,8 @@ public class Score {
         return userName;
     }
 
-    public Score setUserName(String name) {
-        this.userName = name;
+    public Score setUserName(String userName) {
+        this.userName = userName;
         return this;
     }
 
@@ -47,7 +47,7 @@ public class Score {
 
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer("User: ").append(userName);
+        StringBuffer sb = new StringBuffer("User:").append(userName);
         sb.append("\nScore:").append(score);
         return sb.toString();
 

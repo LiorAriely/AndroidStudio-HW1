@@ -26,10 +26,10 @@ public class ScoreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
+        findViews();
         listFragment = new ListFragment();
         mapFragment = new MapsFragment();
         listFragment.setCallBack_list(callback_list);
-        findViews();
         getSupportFragmentManager().beginTransaction().add(R.id.score_list,listFragment).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.score_map,mapFragment).commit();
 

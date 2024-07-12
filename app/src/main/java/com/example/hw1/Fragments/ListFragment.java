@@ -1,5 +1,6 @@
 package com.example.hw1.Fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -19,7 +20,6 @@ import com.example.hw1.DB.Score;
 import com.example.hw1.Interface.Callback_List;
 import com.example.hw1.R;
 import com.example.hw1.Utilities.AppSP;
-import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 
 public class ListFragment extends Fragment {
@@ -31,10 +31,6 @@ public class ListFragment extends Fragment {
     public void setCallBack_list(Callback_List callBack_list){
         this.callBack_List = callBack_list;
     }
-    public ListFragment() {
-        // Required empty public constructor
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -42,8 +38,6 @@ public class ListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
         findViews(view);
         initListView();
-
-
 
         userList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
@@ -69,7 +63,8 @@ public class ListFragment extends Fragment {
                 public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                     View view = super.getView(position, convertView, parent);
                     TextView textView = (TextView) view.findViewById(android.R.id.text1);
-                    //textView.setTypeface(typeface);
+                    textView.setTextColor(Color.BLACK);
+                    textView.setTextSize(10);
                     return view;
                 }
             };

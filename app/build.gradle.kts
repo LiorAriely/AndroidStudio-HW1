@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
+    //id(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -43,6 +44,7 @@ dependencies {
     implementation(libs.gson)
     //Google maps
     implementation("com.google.android.gms:play-services-location:18.0.0")
-    implementation("com.google.android.gms:play-services-maps:18.0.0")
+    //implementation("com.google.android.gms:play-services-maps:18.0.0")
+    implementation ("com.google.android.gms:play-services-maps:19.0.0")
     implementation("com.github.delight-im:Android-SimpleLocation:v1.1.0")
 }
