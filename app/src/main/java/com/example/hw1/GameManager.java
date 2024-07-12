@@ -3,6 +3,11 @@ package com.example.hw1;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.hw1.DB.AppDB;
+import com.example.hw1.DB.Score;
+import com.example.hw1.Utilities.AppSP;
+import com.google.gson.Gson;
+
 import java.util.Random;
 
 public class GameManager {
@@ -11,7 +16,9 @@ public class GameManager {
     private int currentCol = 1;
     private int initialLives;
     private int score = 0;
+    private final String SCORE = "scores";
     private int lives = 3;
+    private String userName;
     private Random random = new Random();
     private ImageView[][] cells;
 
@@ -93,5 +100,21 @@ public class GameManager {
 
     public int getScore() {
         return score;
+    }
+
+    public void save(double longitude, double latitude) {
+        AppDB appDB;
+        String json = AppSP.getInstance().getStrSP(SCORE,"");
+        appDB = new Gson().fromJson(json, AppDB.class);
+        if(appDB==null) {
+            appDB = new AppDB();
+        }
+        Score scr = createScore(longitude,latitude);
+        appDB.getScores().add(scr);
+        AppSP.getInstance().putString(SCORE,new Gson().toJson(appDB));
+    }
+
+    private Score createScore(double longitude, double latitude){
+        return new Score().setUserName(userName).setScore(score).setLatitude(latitude).setLongitude(longitude);
     }
 }

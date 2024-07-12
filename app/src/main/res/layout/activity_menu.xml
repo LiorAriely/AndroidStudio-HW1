@@ -7,6 +7,7 @@
     android:background="#B0E2FF"
     tools:context=".MenuActivity">
 
+
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/menu_IMG_backround"
         android:layout_width="match_parent"
@@ -16,6 +17,7 @@
         />
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/menu_TITLE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -26,6 +28,21 @@
         android:textColor="@color/black"
         android:textSize="36sp"
         android:textStyle="bold" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/menu_TXT_userName"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/menu_BTN_play"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:hint="Enter your name"
+        android:maxLength="15"
+        android:maxLines="1"
+        android:textStyle="bold"
+        android:textColorHint="#575252"
+        android:textColor="@color/black"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/menu_BTN_play"

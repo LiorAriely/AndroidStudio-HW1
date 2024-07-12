@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.hw1.Sensors.SensorsDetector;
 import com.example.hw1.Utilities.Sound;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.Random;
 
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private AppCompatImageView[] game_hearts;
     private MaterialButton game_arrow_left;
     private MaterialButton game_arrow_right;
+    private MaterialTextView main_score;
     private final int totalRows=8;
     private final int totalCols=5;
     private final int totalBirdRows=7;
@@ -39,9 +41,15 @@ public class MainActivity extends AppCompatActivity {
     private Sound soundPlayer;
     private SensorsDetector sensorsDec;
     public boolean isSensors = false;
+    private String userName="";
+    private double latitude = 0.0;
+    private double longitude = 0.0;
 
     public static final String KEY_SENSOR = "KEY_SENSOR";
     public static final String KEY_SPEED="KEY_SPEED";
+    public static final String KEY_USER="KEY_USER";
+    public static final String KEY_LONGITUDE="KEY_LONGITUDE";
+    public static final String KEY_LATITUDE="KEY_LATITUDE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +83,9 @@ public class MainActivity extends AppCompatActivity {
         Intent previousIntent = getIntent();
         boolean isFastMode = previousIntent.getExtras().getBoolean(KEY_SPEED);
         isSensors= previousIntent.getExtras().getBoolean(KEY_SENSOR);
+        userName = previousIntent.getExtras().getString(KEY_USER);
+        latitude = previousIntent.getExtras().getDouble(KEY_LATITUDE);
+        longitude = previousIntent.getExtras().getDouble(KEY_LONGITUDE);
         setSpeed(isFastMode);
     }
 
@@ -100,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.game_IMG_heart3)
         };
 
+        main_score = findViewById(R.id.main_score);
         game_arrow_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -205,16 +217,32 @@ public class MainActivity extends AppCompatActivity {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    resetGame();
+                    gameOver();
                 }
             }, 6000);//Wait 6 sec until game starts over
         }
+    }
+
+    private void gameOver() {
+        saveScore();
+        switchActivity();
+    }
+
+    private void switchActivity() {
+        Intent intent = new Intent(MainActivity.this, ScoreActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void saveScore() {
+        gameManager.save(longitude, latitude);
     }
 
     //Handle collision event when the plane collects coin.
     private void handleScore() {
         Toast.makeText(this, "Great!", Toast.LENGTH_SHORT).show();
         gameManager.addScore();
+        main_score.setText(""+gameManager.getScore());
         playCoinSound();
     }
 
